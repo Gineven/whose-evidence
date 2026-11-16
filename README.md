@@ -29,4 +29,4 @@ The website uses plain HTML, CSS and JavaScript, with no build step or external 
 
 GitHub Pages serves the `main` branch at `/ (root)`. Keep `.nojekyll` at the repository root. All assets use relative URLs.
 
-The page structure was inspired by [OpenFunGraph](https://openfungraph.github.io/). The implementation, research figures and results belong to this project.
+The page design was inspired by [UA-NWM](https://duryi.github.io/UA-NWM-Project-Page/) and [OpenFunGraph](https://openfungraph.github.io/). The implementation, research figures and results belong to this project.

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Whose Evidence Is It? Topology-Scoped Subgraph Reasoning for UAV Video Grounding. Competing soft correspondence hypotheses for language-guided localization in aerial videos.">
-  <meta name="theme-color" content="#7351b5">
+  <meta name="theme-color" content="#234583">
   <meta property="og:title" content="Whose Evidence Is It?">
   <meta property="og:description" content="Topology-Scoped Subgraph Reasoning for UAV Video Grounding">
   <meta property="og:type" content="website">
@@ -12,12 +12,12 @@
   <meta name="author" content="Jingjun Sun, Chaowei Wang, Jiaxu Tian, Ming Yang, Yao Zhang, Yan Di, Shan Gao">
   <title>Whose Evidence Is It? | UAV Video Grounding</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261116c">
-  <link rel="stylesheet" href="video-gallery.css?v=20261116c">
+  <link rel="stylesheet" href="style.css?v=20261116d">
+  <link rel="stylesheet" href="video-gallery.css?v=20261116d">
   <script src="site-config.js" defer></script>
   <script src="data.js" defer></script>
-  <script src="script.js?v=20261116c" defer></script>
-  <script src="video-gallery.js?v=20261116c" defer></script>
+  <script src="script.js?v=20261116d" defer></script>
+  <script src="video-gallery.js?v=20261116d" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -28,28 +28,31 @@
     </nav>
   </header>
   <main id="main">
-    <section class="hero container" id="top">
+    <div class="hero-layout container" id="top">
+    <section class="hero" aria-labelledby="project-title">
       <p class="eyebrow">UAV video grounding</p>
-      <h1>Whose <span>Evidence</span> <span class="title-ending">Is It?</span></h1>
-      <p class="paper-title">Topology-Scoped Subgraph Reasoning<br class="desktop-break"> for UAV Video Grounding</p>
+      <h1 id="project-title">Whose <span>Evidence</span><span class="title-ending">Is It?</span></h1>
+      <p class="paper-title">Topology-Scoped Subgraph Reasoning for UAV Video Grounding</p>
+      <p class="hero-summary">Similar objects. Scattered clues.<br><strong>Evaluate the evidence under competing correspondence hypotheses.</strong></p>
       <div id="author-block" class="authors" hidden></div>
       <div id="affiliation-block" class="affiliations" hidden></div>
       <div id="author-emails" class="author-emails" aria-label="Author email addresses" hidden></div>
       <p id="author-notes" class="author-notes" hidden></p>
       <p id="venue" class="venue" hidden></p>
       <div class="resource-links">
+        <a class="pill demo-link" href="#video-demos">Watch demos <span aria-hidden="true">↗</span></a>
         <a class="pill primary" data-paper-link hidden target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg>Paper <span aria-hidden="true">↗</span></a>
         <span class="pill unavailable" id="paper-pending">Paper <small>coming soon</small></span>
         <a class="pill" id="code-link" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>Code <span aria-hidden="true">↗</span></a>
         <span class="pill unavailable" id="code-pending"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>Code <small>coming soon</small></span>
         <a class="pill" href="#results">Explore results <span aria-hidden="true">↓</span></a>
       </div>
-      <p class="hero-summary">Similar objects. Scattered clues.<br><strong>Evaluate the evidence under competing correspondence hypotheses.</strong></p>
+
 
     </section>
 
-    <section class="section container" id="video-demos" aria-labelledby="video-heading">
-      <div class="section-heading"><p class="eyebrow">Video demonstrations</p><h2 id="video-heading">See the reasoning in motion.</h2><p>Follow the target, compare candidate close-ups, and inspect soft subgraphs on one timeline.</p></div>
+    <section class="hero-demo" id="video-demos" aria-labelledby="video-heading">
+      <div class="section-heading demo-intro"><p class="eyebrow">Video demonstrations</p><h2 id="video-heading">See the reasoning in motion.</h2></div>
       <div class="demo-gallery" role="region" aria-roledescription="carousel" aria-label="Three video grounding examples">
         <div class="demo-navigation">
           <button type="button" class="demo-arrow" id="demo-prev" aria-label="Previous video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
@@ -87,7 +90,10 @@
       <noscript><p><a href="assets/videos/red-bus.mp4">Red bus</a> · <a href="assets/videos/bridge-bus.mp4">Yellow-blue bus</a> · <a href="assets/videos/white-coach.mp4">White coach</a></p></noscript>
     </section>
 
+    </div>
+
     <section class="container teaser-section" aria-label="Motivation">
+      <div class="section-heading"><p class="eyebrow">The challenge</p><h2>Whose evidence is combined across time?</h2></div>
       <figure class="teaser figure">
         <a class="zoomable" href="assets/pdfs/teaser.pdf" data-zoom="assets/images/teaser.webp" data-title="Motivation: whose evidence is combined across time?" aria-label="Enlarge the motivation figure"><img src="assets/images/teaser.webp" width="2400" height="1066" fetchpriority="high" alt="A white minivan and a similar distractor share appearance cues. Turning and viaduct cues emerge at different times. Competing soft subgraphs organize evidence for target selection."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a>
         <figcaption>A target and its look-alike can satisfy different parts of a description. We retain alternative correspondences and evaluate cross-time evidence under each hypothesis.</figcaption>
@@ -200,7 +206,7 @@
       <section id="citation-section" class="citation-section" hidden><h2>BibTeX</h2><button id="copy-citation" class="pill">Copy citation</button><pre id="citation-text"></pre><span id="copy-status" class="sr-only" aria-live="polite"></span></section>
     </section>
   </main>
-  <footer><div class="container footer-inner"><div><strong>Whose Evidence Is It?</strong><p>Topology-Scoped Subgraph Reasoning for UAV Video Grounding</p></div><a href="#top">Back to top ↑</a></div><p class="credit">Project-page layout inspired by <a href="https://openfungraph.github.io/" target="_blank" rel="noopener">OpenFunGraph</a>. Figures and results are from this work.</p></footer>
+  <footer><div class="container footer-inner"><div><strong>Whose Evidence Is It?</strong><p>Topology-Scoped Subgraph Reasoning for UAV Video Grounding</p></div><a href="#top">Back to top ↑</a></div><p class="credit">Project-page design inspired by <a href="https://duryi.github.io/UA-NWM-Project-Page/" target="_blank" rel="noopener">UA-NWM</a> and <a href="https://openfungraph.github.io/" target="_blank" rel="noopener">OpenFunGraph</a>. Figures and results are from this work.</p></footer>
 
   <dialog id="figure-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title"></h2><button id="close-dialog" aria-label="Close enlarged figure">×</button></div><div class="dialog-image-wrap"><img id="dialog-image" alt=""></div><div class="dialog-bottom"><span>Use your browser's zoom for fine details.</span><a id="dialog-pdf" target="_blank" rel="noopener">Open original PDF ↗</a></div></dialog>
 </body>
