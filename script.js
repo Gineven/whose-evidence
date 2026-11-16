@@ -15,17 +15,29 @@
     const block = qs("#author-block");
     config.authors.forEach(author => {
       const wrapper = document.createElement("span");
-      const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(author.email || "") ? author.email : "";
-      const name = document.createElement(safeUrl(author.url) || email ? "a" : "span");
+      const name = document.createElement("span");
       name.textContent = author.name;
-      if (safeUrl(author.url)) { name.href = author.url; name.target = "_blank"; name.rel = "noopener"; }
-      else if (email) { name.href = "mailto:" + email; name.title = "Email " + author.name + ": " + email; }
       wrapper.append(name);
       const marks = [...(author.affiliations || []), ...(author.equalContribution ? ["*"] : []), ...(author.corresponding ? ["†"] : [])];
       if (marks.length) { const sup = document.createElement("sup"); sup.textContent = marks.join(","); wrapper.append(sup); }
       block.append(wrapper);
     });
     block.hidden = false;
+    const emailGroups = new Map();
+    config.authors.forEach(author => {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(author.email || "")) return;
+      const [local, domain] = author.email.split("@");
+      if (!emailGroups.has(domain)) emailGroups.set(domain, []);
+      emailGroups.get(domain).push(local);
+    });
+    const emails = qs("#author-emails");
+    emailGroups.forEach((locals, domain) => {
+      const group = document.createElement("span");
+      group.className = "email-group";
+      group.textContent = (locals.length > 1 ? "{" + locals.join(", ") + "}" : locals[0]) + "@" + domain;
+      emails.append(group);
+    });
+    emails.hidden = emailGroups.size === 0;
     const notes = [];
     if (config.authors.some(author => author.equalContribution)) notes.push("* Equal contribution.");
     if (config.authors.some(author => author.corresponding)) notes.push("† Corresponding author.");
@@ -113,33 +125,6 @@
       });
     });
   });
-
-  function renderScale(metric) {
-    const current = data.scale[metric];
-    const width = 700, height = 300, left = 35, right = 8, top = 26, bottom = 44;
-    const plotHeight = height - top - bottom;
-    const groupWidth = (width - left - right) / 4;
-    const baseline = height - bottom;
-    let svg = `<svg viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="scale-title scale-description"><title id="scale-title">${current.label} by target scale</title><desc id="scale-description">Comparison of STCAT and Ours. Values are percentages. Each pair uses the same target-area group.</desc>`;
-    for (let tick = 0; tick <= 80; tick += 20) {
-      const y = baseline - tick / 80 * plotHeight;
-      svg += `<line class="chart-grid" x1="${left}" y1="${y}" x2="${width-right}" y2="${y}"/><text class="chart-y" x="${left-8}" y="${y+4}" text-anchor="end">${tick}</text>`;
-    }
-    for (let group = 0; group < 4; group++) {
-      const center = left + (group + .5) * groupWidth;
-      [[current.stcat[group], "#6594c5", "STCAT†", -40], [current.ours[group], "#7652b3", "Ours", 12]].forEach(([value, color, name, dx]) => {
-        const barHeight = value / 80 * plotHeight, x = center + dx, y = baseline - barHeight;
-        svg += `<rect class="bar" x="${x}" y="${y}" width="29" height="${barHeight}" rx="2" fill="${color}"><title>${name}: ${fmt(value)}%; ${data.scale.queries[group]} queries</title></rect><text class="chart-value" x="${x+14.5}" y="${y-8}" text-anchor="middle">${fmt(value)}</text>`;
-      });
-      const label = data.scale.labels[group].replace(/</g,"&lt;");
-      svg += `<text class="chart-label" x="${center}" y="${baseline+25}" text-anchor="middle">${label}</text>`;
-    }
-    svg += "</svg>";
-    qs("#scale-chart").innerHTML = svg;
-    qsa("[data-scale]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.scale === metric)));
-  }
-  qsa("[data-scale]").forEach(button => button.addEventListener("click", () => renderScale(button.dataset.scale)));
-  renderScale("mfacc");
 
   const dialog = qs("#figure-dialog");
   let lastTrigger;

@@ -12,10 +12,10 @@
   <meta name="author" content="Jingjun Sun, Chaowei Wang, Jiaxu Tian, Ming Yang, Yao Zhang, Yan Di, Shan Gao">
   <title>Whose Evidence Is It? | UAV Video Grounding</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261116b">
   <script src="site-config.js" defer></script>
   <script src="data.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="script.js?v=20261116b" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -32,6 +32,7 @@
       <p class="paper-title">Topology-Scoped Subgraph Reasoning<br class="desktop-break"> for UAV Video Grounding</p>
       <div id="author-block" class="authors" hidden></div>
       <div id="affiliation-block" class="affiliations" hidden></div>
+      <div id="author-emails" class="author-emails" aria-label="Author email addresses" hidden></div>
       <p id="author-notes" class="author-notes" hidden></p>
       <p id="venue" class="venue" hidden></p>
       <div class="resource-links">
@@ -46,11 +47,6 @@
         <a class="zoomable" href="assets/pdfs/teaser.pdf" data-zoom="assets/images/teaser.webp" data-title="Motivation: whose evidence is combined across time?" aria-label="Enlarge the motivation figure"><img src="assets/images/teaser.webp" width="2400" height="1066" fetchpriority="high" alt="A white minivan and a similar distractor share appearance cues. Turning and viaduct cues emerge at different times. Competing soft subgraphs organize evidence for target selection."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a>
         <figcaption>A target and its look-alike can satisfy different parts of a description. We retain alternative correspondences and evaluate cross-time evidence under each hypothesis.</figcaption>
       </figure>
-      <div class="headline-results" aria-label="UAV-SVG results">
-        <div><strong>40.93<span>%</span></strong><span>m_vIoU on UAV-SVG</span></div>
-        <div><strong>47.82<span>%</span></strong><span>m_fAcc on UAV-SVG</span></div>
-        <div><strong>38.07<span>%</span></strong><span>All-correct windows · U<sub>8</sub></span></div>
-      </div>
     </section>
 
     <section class="section abstract-section" id="abstract">
@@ -96,10 +92,9 @@
 
         <div class="scale-section">
           <div class="scale-intro"><p class="eyebrow">Target scale</p><h3>Small targets. More useful evidence.</h3><p>On targets occupying less than <strong>0.1%</strong> of the frame, m_fAcc rises from <strong>11.71%</strong> to <strong>30.57%</strong>.</p><p class="table-note">Groups use each query's median normalized ground-truth box area. The smallest group contains 1,110 queries across 222 videos.</p></div>
-          <div class="scale-visual">
-            <div class="chart-toolbar"><div class="metric-switch" role="group" aria-label="Target-scale metric"><button data-scale="mfacc" aria-pressed="true">m_fAcc</button><button data-scale="mviou" aria-pressed="false">m_vIoU</button></div><div class="legend"><span><i class="legend-baseline"></i>STCAT†</span><span><i class="legend-ours"></i>Ours</span></div></div>
-            <div id="scale-chart" class="scale-chart" aria-live="polite"></div><p class="axis-label">Median target area / frame area</p>
-          </div>
+          <figure class="scale-visual figure">
+            <a class="zoomable" href="assets/pdfs/target-scale.pdf" data-zoom="assets/images/target-scale.webp" data-title="Target-scale analysis from the paper" aria-label="Enlarge the target-scale analysis"><img src="assets/images/target-scale.webp" width="1600" height="1782" loading="lazy" alt="The paper's target-scale analysis comparing STCAT and Ours across four target-area groups, with m_vIoU in the upper panel and m_fAcc in the lower panel."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a>
+          </figure>
         </div>
       </div>
     </section>
