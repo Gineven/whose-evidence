@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Whose Evidence Is It? Topology-Scoped Subgraph Reasoning for UAV Video Grounding. Competing soft correspondence hypotheses for language-guided localization in aerial videos.">
+  <meta name="theme-color" content="#7351b5">
+  <meta property="og:title" content="Whose Evidence Is It?">
+  <meta property="og:description" content="Topology-Scoped Subgraph Reasoning for UAV Video Grounding">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="Jingjun Sun, Chaowei Wang, Jiaxu Tian, Ming Yang, Yao Zhang, Yan Di, Shan Gao">
+  <title>Whose Evidence Is It? | UAV Video Grounding</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="site-config.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="wordmark" href="#top"><span class="node-mark" aria-hidden="true"><i></i><i></i><i></i></span>Whose Evidence?</a>
+      <div class="nav-links"><a href="#method">Method</a><a href="#results">Results</a><a href="#qualitative">Visualizations</a><a href="#transfer">Transfer</a></div>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero container" id="top">
+      <p class="eyebrow">UAV video grounding</p>
+      <h1>Whose <span>Evidence</span> <span class="title-ending">Is It?</span></h1>
+      <p class="paper-title">Topology-Scoped Subgraph Reasoning<br class="desktop-break"> for UAV Video Grounding</p>
+      <div id="author-block" class="authors" hidden></div>
+      <div id="affiliation-block" class="affiliations" hidden></div>
+      <p id="author-notes" class="author-notes" hidden></p>
+      <p id="venue" class="venue" hidden></p>
+      <div class="resource-links">
+        <a class="pill primary" data-paper-link hidden target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg>Paper <span aria-hidden="true">↗</span></a>
+        <span class="pill unavailable" id="paper-pending">Paper <small>coming soon</small></span>
+        <a class="pill" id="code-link" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>Code <span aria-hidden="true">↗</span></a>
+        <span class="pill unavailable" id="code-pending"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg>Code <small>coming soon</small></span>
+        <a class="pill" href="#results">Explore results <span aria-hidden="true">↓</span></a>
+      </div>
+      <p class="hero-summary">Similar objects. Scattered clues.<br><strong>Evaluate the evidence under competing correspondence hypotheses.</strong></p>
+      <figure class="teaser figure">
+        <a class="zoomable" href="assets/pdfs/teaser.pdf" data-zoom="assets/images/teaser.webp" data-title="Motivation: whose evidence is combined across time?" aria-label="Enlarge the motivation figure"><img src="assets/images/teaser.webp" width="2400" height="1066" fetchpriority="high" alt="A white minivan and a similar distractor share appearance cues. Turning and viaduct cues emerge at different times. Competing soft subgraphs organize evidence for target selection."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a>
+        <figcaption>A target and its look-alike can satisfy different parts of a description. We retain alternative correspondences and evaluate cross-time evidence under each hypothesis.</figcaption>
+      </figure>
+      <div class="headline-results" aria-label="UAV-SVG results">
+        <div><strong>40.93<span>%</span></strong><span>m_vIoU on UAV-SVG</span></div>
+        <div><strong>47.82<span>%</span></strong><span>m_fAcc on UAV-SVG</span></div>
+        <div><strong>38.07<span>%</span></strong><span>All-correct windows · U<sub>8</sub></span></div>
+      </div>
+    </section>
+
+    <section class="section abstract-section" id="abstract">
+      <div class="reading-width">
+        <p class="eyebrow">The idea</p><h2>Connect the clues.<br>Keep the hypotheses.</h2>
+        <p>UAV video grounding localizes a language-specified target across a video. In aerial views, tiny objects often look alike, while the motion and spatial cues that distinguish them appear at different times. Combining these observations requires reasoning about <em>which instance they belong to</em>.</p>
+        <p>We introduce <strong>Topology-Scoped Subgraph Reasoning</strong>. A temporal candidate graph retains competing soft correspondence hypotheses. Bidirectional associations enhance shared candidate states and propagate anchor-conditioned support to induce soft subgraphs. Learnable semantic slots read these states with hypothesis-specific support weights, bringing together language-relevant observations across time. Association strength and cue compatibility jointly select a hypothesis for frame-wise box readout and refinement.</p>
+      </div>
+    </section>
+
+    <section class="section container" id="method">
+      <div class="section-heading"><p class="eyebrow">Method</p><h2>From candidate graphs to scoped evidence.</h2><p>One shared graph. Multiple correspondence hypotheses. A joint decision.</p></div>
+      <figure class="figure wide-figure">
+        <a class="zoomable" href="assets/pdfs/pipeline.pdf" data-zoom="assets/images/pipeline.webp" data-title="Topology-Scoped Subgraph Reasoning: method overview" aria-label="Enlarge the method pipeline"><img src="assets/images/pipeline.webp" width="2400" height="852" loading="lazy" alt="Method pipeline: Grounding DINO candidates, state-node encoding, bidirectional temporal association with an absorbing null sink, soft subgraphs, semantic-slot readout, joint hypothesis scoring, and box refinement."><span class="zoom-label" aria-hidden="true">↗ Enlarge pipeline</span></a>
+      </figure>
+      <div class="method-steps">
+        <article><span class="step-number">01</span><h3>Build temporal support</h3><p>Text-conditioned candidates become state nodes. Bidirectional soft associations with an unmatched option connect observations and enhance the shared candidate states.</p></article>
+        <article><span class="step-number">02</span><h3>Read within soft subgraphs</h3><p>Each candidate anchor induces a weighted support across time. Multiple learned slots share that support while reading different language-relevant observations.</p></article>
+        <article><span class="step-number">03</span><h3>Compare and localize</h3><p>Association strength and slot compatibility jointly score hypotheses. The selected support guides per-frame candidate readout and bounding-box refinement.</p></article>
+      </div>
+    </section>
+
+    <section class="section soft-section" id="results">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Quantitative results</p><h2>Better localization, beyond the frontend.</h2><p>Overall comparisons and controlled variants on UAV-SVG.</p></div>
+        <div class="tabs" role="tablist" aria-label="UAV-SVG comparison" data-tabs="results">
+          <button id="tab-benchmark" role="tab" aria-controls="panel-benchmark" aria-selected="true" tabindex="0" data-tab="benchmark">Main comparison</button>
+          <button id="tab-controls" role="tab" aria-controls="panel-controls" aria-selected="false" tabindex="-1" data-tab="controls">Frontend controls</button>
+        </div>
+        <div id="panel-benchmark" class="tab-panel" role="tabpanel" aria-labelledby="tab-benchmark" data-tab-panel="results:benchmark">
+          <div class="table-wrap" tabindex="0" aria-label="Main UAV-SVG comparison; scroll horizontally on small screens">
+            <table><caption class="sr-only">Comparison with prior methods on UAV-SVG. All values are percentages.</caption><thead><tr><th scope="col">Method</th><th scope="col">m_vIoU ↑</th><th scope="col">vIoU@0.3 ↑</th><th scope="col">vIoU@0.5 ↑</th><th scope="col">m_fAcc ↑</th><th scope="col">fAcc@0.3 ↑</th><th scope="col">fAcc@0.5 ↑</th></tr></thead><tbody id="benchmark-body"></tbody></table>
+          </div>
+          <p class="table-note">Prior-method scores follow the manuscript's reported comparison. † Our 224-pixel reproductions. ‡ Published zero-shot result; input resolution unreported. Ours uses an adapted Swin-T/BERT Grounding DINO frontend at a 224-pixel short edge. Frontends and original evaluation settings differ across prior methods.</p>
+          <p class="result-takeaway"><strong>+12.36 pp m_vIoU</strong> over the resolution-matched STCAT reproduction.</p>
+        </div>
+        <div id="panel-controls" class="tab-panel" role="tabpanel" aria-labelledby="tab-controls" data-tab-panel="results:controls" hidden>
+          <div class="table-wrap" tabindex="0" aria-label="Frontend control results"><table><caption class="sr-only">Controlled comparisons with the adapted frontend, in percent.</caption><thead><tr><th scope="col">Setting</th><th scope="col">m_vIoU ↑</th><th scope="col">m_fAcc ↑</th><th scope="col">U<sub>8</sub> ↑</th></tr></thead><tbody id="controls-body"></tbody></table></div>
+          <p class="table-note">Controlled configurations use the adapted Swin-T/BERT frontend. Local-only removes temporal reasoning; Unscoped readout removes hypothesis support conditioning. U<sub>8</sub> is the rate of nine consecutive sampled localizations being correct, with IoU &gt; 0.5 and no interpolation.</p>
+          <p class="result-takeaway">Scoping evidence readout adds <strong>+2.32 pp m_vIoU</strong> and <strong>+3.90 pp U<sub>8</sub></strong> over the unscoped variant.</p>
+        </div>
+        <noscript><p>Enable JavaScript to view the interactive result tables.</p></noscript>
+
+        <div class="scale-section">
+          <div class="scale-intro"><p class="eyebrow">Target scale</p><h3>Small targets. More useful evidence.</h3><p>On targets occupying less than <strong>0.1%</strong> of the frame, m_fAcc rises from <strong>11.71%</strong> to <strong>30.57%</strong>.</p><p class="table-note">Groups use each query's median normalized ground-truth box area. The smallest group contains 1,110 queries across 222 videos.</p></div>
+          <div class="scale-visual">
+            <div class="chart-toolbar"><div class="metric-switch" role="group" aria-label="Target-scale metric"><button data-scale="mfacc" aria-pressed="true">m_fAcc</button><button data-scale="mviou" aria-pressed="false">m_vIoU</button></div><div class="legend"><span><i class="legend-baseline"></i>STCAT†</span><span><i class="legend-ours"></i>Ours</span></div></div>
+            <div id="scale-chart" class="scale-chart" aria-live="polite"></div><p class="axis-label">Median target area / frame area</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="qualitative">
+      <div class="section-heading"><p class="eyebrow">Qualitative results</p><h2>Follow the target. Inspect the evidence.</h2><p>From visually similar distractors to tiny targets and competing hypotheses.</p></div>
+      <div class="tabs" role="tablist" aria-label="Qualitative examples" data-tabs="visual">
+        <button id="tab-similar" role="tab" aria-controls="panel-similar" aria-selected="true" tabindex="0" data-tab="similar">Similar distractors</button>
+        <button id="tab-small" role="tab" aria-controls="panel-small" aria-selected="false" tabindex="-1" data-tab="small">Small targets</button>
+        <button id="tab-evidence" role="tab" aria-controls="panel-evidence" aria-selected="false" tabindex="-1" data-tab="evidence">Inside two hypotheses</button>
+      </div>
+      <div id="panel-similar" class="tab-panel" role="tabpanel" aria-labelledby="tab-similar" data-tab-panel="visual:similar">
+        <figure class="figure"><a class="zoomable" href="assets/pdfs/qualitative.pdf" data-zoom="assets/images/qualitative.webp" data-title="Localization in the presence of similar distractors" aria-label="Enlarge similar-distractor examples"><img src="assets/images/qualitative.webp" width="2400" height="1744" loading="lazy" alt="Comparisons of ground truth, STCAT, and our method for a green coach entering a roundabout and a white golf cart in a parking area."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a><figcaption>Entry order, motion, and spatial relations distinguish objects that share appearance. These examples compare the predicted boxes across selected observations.</figcaption></figure>
+      </div>
+      <div id="panel-small" class="tab-panel" role="tabpanel" aria-labelledby="tab-small" data-tab-panel="visual:small" hidden>
+        <figure class="figure"><a class="zoomable" href="assets/pdfs/small-targets.pdf" data-zoom="assets/images/small-targets.webp" data-title="Localization of small aerial targets" aria-label="Enlarge small-target examples"><img src="assets/images/small-targets.webp" width="2400" height="1763" loading="lazy" alt="Small-target comparisons for a street sweeper on a viaduct and a person pushing a cart, with enlarged target regions."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a><figcaption>Small objects provide limited local detail. Enlarged regions make the target boxes and nearby distractors visible without replacing the original full-frame context.</figcaption></figure>
+      </div>
+      <div id="panel-evidence" class="tab-panel" role="tabpanel" aria-labelledby="tab-evidence" data-tab-panel="visual:evidence" hidden>
+        <figure class="figure"><a class="zoomable" href="assets/pdfs/evidence.pdf" data-zoom="assets/images/evidence.webp" data-title="Candidate support and slot readout under two hypotheses" aria-label="Enlarge soft-subgraph evidence visualization"><img src="assets/images/evidence.webp" width="2400" height="1655" loading="lazy" alt="Selected hypothesis A and alternative B for an articulated bus, with candidate supports, total support mass, and four learned slot-response heatmaps."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a><figcaption>The same video produces different soft supports and temporal readouts under two anchors. A is the selected hypothesis; B is an alternative. Slots are learned representations without fixed semantic categories. Each A/B heatmap pair shares its color scale.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section soft-section" id="transfer">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Cross-dataset transfer</p><h2>Trained on UAV-SVG. Tested beyond it.</h2><p>Direct transfer without target-domain fine-tuning or ground-truth box initialization.</p></div>
+        <div class="tabs" role="tablist" aria-label="Transfer dataset" data-tabs="transfer">
+          <button id="tab-vidstg" role="tab" aria-controls="panel-vidstg" aria-selected="true" tabindex="0" data-tab="vidstg">VidSTG</button>
+          <button id="tab-tnl2k" role="tab" aria-controls="panel-tnl2k" aria-selected="false" tabindex="-1" data-tab="tnl2k">TNL-2K</button>
+        </div>
+        <div id="panel-vidstg" class="tab-panel" role="tabpanel" aria-labelledby="tab-vidstg" data-tab-panel="transfer:vidstg">
+          <div class="transfer-summary"><div><strong>29.34<span>%</span></strong><span>gt-vIoU · all queries</span></div><p><strong>+5.65 pp</strong> over STCAT on the VidSTG test set. Localization is evaluated within ground-truth temporal intervals.</p></div>
+          <div class="table-wrap" tabindex="0" aria-label="VidSTG transfer results"><table><caption class="sr-only">Direct transfer to VidSTG, in percent.</caption><thead><tr><th scope="col">Query type</th><th scope="col">Method</th><th scope="col">gt-vIoU ↑</th><th scope="col">gt-vIoU@0.3 ↑</th><th scope="col">gt-vIoU@0.5 ↑</th><th scope="col">m_fAcc ↑</th></tr></thead><tbody id="vidstg-body"></tbody></table></div>
+          <figure class="figure transfer-figure"><a class="zoomable" href="assets/pdfs/vidstg.pdf" data-zoom="assets/images/vidstg.webp" data-title="Direct transfer: VidSTG qualitative results" aria-label="Enlarge VidSTG examples"><img src="assets/images/vidstg.webp" width="2400" height="1907" loading="lazy" alt="Direct-transfer localization examples on VidSTG, comparing STCAT and our method with ground-truth boxes."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a></figure>
+        </div>
+        <div id="panel-tnl2k" class="tab-panel" role="tabpanel" aria-labelledby="tab-tnl2k" data-tab-panel="transfer:tnl2k" hidden>
+          <div class="transfer-summary"><div><strong>40.07<span>%</span></strong><span>m_vIoU · sampled frames</span></div><p><strong>700 test sequences.</strong> Both methods use at most 100 uniformly sampled frames per video. The same predictions are also evaluated densely after shared linear interpolation.</p></div>
+          <div class="table-wrap" tabindex="0" aria-label="TNL-2K transfer results"><table><caption class="sr-only">TNL-2K transfer using direct sampled-frame and dense evaluation, in percent.</caption><thead><tr><th scope="col">Method</th><th scope="col">m_vIoU ↑</th><th scope="col">vIoU@0.3 ↑</th><th scope="col">vIoU@0.5 ↑</th><th scope="col">m_fAcc ↑</th><th scope="col">fAcc@0.3 ↑</th><th scope="col">fAcc@0.5 ↑</th></tr></thead><tbody id="tnl2k-body"></tbody></table></div>
+          <p class="table-note">This is the paper's offline language-grounding transfer protocol with UAV-SVG-style spatial metrics, rather than the native first-frame-initialized tracking protocol.</p>
+          <figure class="figure transfer-figure"><a class="zoomable" href="assets/pdfs/tnl2k.pdf" data-zoom="assets/images/tnl2k.webp" data-title="Direct transfer: TNL-2K qualitative results" aria-label="Enlarge TNL-2K examples"><img src="assets/images/tnl2k.webp" width="2400" height="1812" loading="lazy" alt="Direct-transfer examples on TNL-2K, including people and a sports player, with STCAT and our method compared against ground truth."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container further-section" id="more">
+      <div class="section-heading compact"><p class="eyebrow">A closer look</p><h2>What changes, and what remains difficult.</h2></div>
+      <details><summary>Component ablations <span aria-hidden="true">+</span></summary><div class="details-content"><p>Removing soft association, unmatched handling, adaptive fusion, or a scoring input lowers localization and temporal-window performance.</p><div class="table-wrap" tabindex="0" aria-label="Component ablations"><table><thead><tr><th scope="col">Setting</th><th scope="col">m_vIoU ↑</th><th scope="col">m_fAcc ↑</th><th scope="col">U<sub>8</sub> ↑</th></tr></thead><tbody id="ablation-body"></tbody></table></div></div></details>
+      <details><summary>Computation and the hypothesis budget <span aria-hidden="true">+</span></summary><div class="details-content"><p>The full model adds about <strong>0.66M parameters</strong> over Frontend-only. At a budget of 64 anchors, m_vIoU changes from 40.93% to 40.72%, while backend latency decreases from 81.32 ms to 32.97 ms.</p><div class="table-wrap" tabindex="0" aria-label="Efficiency comparison"><table><thead><tr><th scope="col">Configuration</th><th scope="col">m_vIoU ↑</th><th scope="col">U<sub>8</sub> ↑</th><th scope="col">Full pipeline (ms) ↓</th><th scope="col">Peak memory (GiB) ↓</th></tr></thead><tbody id="efficiency-body"></tbody></table></div><p class="table-note">RTX 4090, FP32. Runtime is per video–description pair on eight profiling pairs, including input loading and preprocessing, with 30–100 sampled observations (mean 64). Accuracy uses the benchmark evaluation. Full-pipeline speed is dominated by the frontend.</p></div></details>
+      <details><summary>Failure cases <span aria-hidden="true">+</span></summary><div class="details-content"><p>Ambiguous observations and unreliable candidate support can still produce localization errors. Shared state enhancement and frame-wise readout do not impose a hard identity-consistency constraint.</p><figure class="figure"><a class="zoomable" href="assets/pdfs/failure.pdf" data-zoom="assets/images/failure.webp" data-title="Failure cases from the supplementary material" aria-label="Enlarge failure cases"><img src="assets/images/failure.webp" width="2400" height="1850" loading="lazy" alt="Failure examples showing differences between predicted target boxes and ground truth."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a></figure></div></details>
+      <section id="citation-section" class="citation-section" hidden><h2>BibTeX</h2><button id="copy-citation" class="pill">Copy citation</button><pre id="citation-text"></pre><span id="copy-status" class="sr-only" aria-live="polite"></span></section>
+    </section>
+  </main>
+  <footer><div class="container footer-inner"><div><strong>Whose Evidence Is It?</strong><p>Topology-Scoped Subgraph Reasoning for UAV Video Grounding</p></div><a href="#top">Back to top ↑</a></div><p class="credit">Project-page layout inspired by <a href="https://openfungraph.github.io/" target="_blank" rel="noopener">OpenFunGraph</a>. Figures and results are from this work.</p></footer>
+
+  <dialog id="figure-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title"></h2><button id="close-dialog" aria-label="Close enlarged figure">×</button></div><div class="dialog-image-wrap"><img id="dialog-image" alt=""></div><div class="dialog-bottom"><span>Use your browser's zoom for fine details.</span><a id="dialog-pdf" target="_blank" rel="noopener">Open original PDF ↗</a></div></dialog>
+</body>
+</html>
