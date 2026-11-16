@@ -12,12 +12,12 @@
   <meta name="author" content="Jingjun Sun, Chaowei Wang, Jiaxu Tian, Ming Yang, Yao Zhang, Yan Di, Shan Gao">
   <title>Whose Evidence Is It? | UAV Video Grounding</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261116d">
-  <link rel="stylesheet" href="video-gallery.css?v=20261116d">
+  <link rel="stylesheet" href="style.css?v=20261116e">
+  <link rel="stylesheet" href="video-gallery.css?v=20261116e">
   <script src="site-config.js" defer></script>
   <script src="data.js" defer></script>
-  <script src="script.js?v=20261116d" defer></script>
-  <script src="video-gallery.js?v=20261116d" defer></script>
+  <script src="script.js?v=20261116e" defer></script>
+  <script src="video-gallery.js?v=20261116e" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,9 +29,12 @@
   </header>
   <main id="main">
     <div class="hero-layout container" id="top">
-    <section class="hero" aria-labelledby="project-title">
-      <p class="eyebrow">UAV video grounding</p>
-      <h1 id="project-title">Whose <span>Evidence</span><span class="title-ending">Is It?</span></h1>
+    <button type="button" id="intro-reopen" class="intro-rail" aria-controls="project-intro" aria-expanded="false" aria-label="Show paper introduction" hidden><span aria-hidden="true">↗</span><span>About the paper</span></button>
+    <div id="intro-shell" class="intro-shell">
+    <div class="intro-clip">
+    <section class="hero" id="project-intro" aria-labelledby="project-title">
+      <div class="intro-toolbar"><p class="eyebrow">UAV video grounding</p><button type="button" id="intro-close" class="intro-close" aria-controls="project-intro" aria-expanded="true" aria-label="Hide paper introduction" hidden><span aria-hidden="true">←</span> Hide intro</button></div>
+      <h1 id="project-title">Whose <span>Evidence</span> <span class="title-ending">Is It?</span></h1>
       <p class="paper-title">Topology-Scoped Subgraph Reasoning for UAV Video Grounding</p>
       <p class="hero-summary">Similar objects. Scattered clues.<br><strong>Evaluate the evidence under competing correspondence hypotheses.</strong></p>
       <div id="author-block" class="authors" hidden></div>
@@ -50,9 +53,11 @@
 
 
     </section>
+    </div>
+    </div>
 
     <section class="hero-demo" id="video-demos" aria-labelledby="video-heading">
-      <div class="section-heading demo-intro"><p class="eyebrow">Video demonstrations</p><h2 id="video-heading">See the reasoning in motion.</h2></div>
+      <div class="section-heading demo-intro"><p class="eyebrow">Video demonstrations</p><h2 id="video-heading" tabindex="-1">See the reasoning in motion.</h2></div>
       <div class="demo-gallery" role="region" aria-roledescription="carousel" aria-label="Three video grounding examples">
         <div class="demo-navigation">
           <button type="button" class="demo-arrow" id="demo-prev" aria-label="Previous video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
@@ -77,8 +82,11 @@
             <summary><span class="demo-zoom-label">A/B close-ups</span><span class="demo-zoom-toggle" aria-hidden="true">+</span></summary>
             <canvas id="demo-zoom-canvas" width="1280" height="360" role="img" aria-label="Synchronized close-ups of selected hypothesis A and alternative hypothesis B."></canvas>
           </details>
-          <div class="demo-graphs"><div class="demo-graph-heading"><h3>Soft subgraphs</h3><span>Synced with the video</span></div><canvas id="demo-graph-canvas" width="1280" height="280" role="img" aria-label="Candidate support and temporal associations for hypotheses A and B."></canvas></div>
-          <div class="demo-footer"><span id="demo-info">56 observations · 64 candidates / observation</span><a id="demo-download" href="assets/videos/red-bus.mp4" download>Download video ↗</a></div>
+          <details id="demo-graphs" class="demo-graphs">
+            <summary><span class="demo-graphs-label">Soft subgraphs</span><span class="demo-graphs-meta">Synced with the video</span><span class="demo-graphs-toggle" aria-hidden="true">+</span></summary>
+            <div class="demo-graphs-content"><canvas id="demo-graph-canvas" width="1280" height="280" role="img" aria-label="Candidate support and temporal associations for hypotheses A and B."></canvas></div>
+          </details>
+          <div class="demo-footer"><span id="demo-info">56 observations · 64 candidates / observation</span><a id="demo-download" href="assets/videos/red-bus.mp4?v=20261116e" download>Download video ↗</a></div>
         </div>
         <div class="demo-pagination" aria-label="Choose a video">
           <button type="button" data-demo="0" aria-label="Video 1: Red articulated bus" aria-pressed="true">1</button>

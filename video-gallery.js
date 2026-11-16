@@ -10,6 +10,7 @@
   ];
   const get = id => document.getElementById('demo-' + id);
   const video = get('source'), main = get('main-canvas'), zoom = get('zoom-canvas'), graph = get('graph-canvas');
+  const graphDetail = get('graphs');
   const detail = get('zoom'), play = get('play'), big = get('big-play'), seek = get('seek'), clock = get('clock'), status = get('status');
   const slices = [[main,0,832], [zoom,832,360], [graph,1192,280]];
   const remembered = new Map();
@@ -28,7 +29,7 @@
     if (!source || (source === poster && (!poster.complete || !poster.naturalWidth))) return;
     paintSerial++;
     for (const [canvas,y,h] of slices) {
-      if (canvas === zoom && !detail.open) continue;
+      if ((canvas === zoom && !detail.open) || (canvas === graph && !graphDetail.open)) continue;
       canvas.getContext('2d', {alpha:false}).drawImage(source,0,y,1280,h,0,0,1280,h);
       canvas.dataset.time = source === video ? video.currentTime.toFixed(5) : 'poster';
       canvas.dataset.paint = String(paintSerial);
@@ -58,15 +59,15 @@
     get('number').textContent = `${String(index + 1).padStart(2,'0')} / 03`;
     get('title').textContent = current.title;
     get('info').textContent = `${current.observations} observations · 64 candidates / observation`;
-    get('download').href = `assets/videos/${current.slug}.mp4`;
+    get('download').href = `assets/videos/${current.slug}.mp4?v=20261116e`;
     root.querySelectorAll('[data-demo]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.demo) === index)));
     detail.open = remembered.get(current.slug)?.open || false;
     for (const [canvas] of slices) { const ctx = canvas.getContext('2d', {alpha:false}); ctx.fillStyle = '#fff'; ctx.fillRect(0,0,canvas.width,canvas.height); }
     poster = new Image();
     poster.onload = () => { if (epoch === selectedEpoch) paint(); };
-    poster.src = `assets/images/${current.slug}-poster.jpg`;
+    poster.src = `assets/images/${current.slug}-poster.jpg?v=20261116e`;
     video.poster = poster.src;
-    video.src = `assets/videos/${current.slug}.mp4`;
+    video.src = `assets/videos/${current.slug}.mp4?v=20261116e`;
     video.load();
     video.playbackRate = Number(get('speed').value);
     status.textContent = 'Loading video…';
@@ -87,6 +88,7 @@
   seek.addEventListener('input', () => { if (video.readyState >= 1) video.currentTime = Number(seek.value); updateClock(); });
   get('speed').addEventListener('change', event => { video.playbackRate = Number(event.target.value); });
   detail.addEventListener('toggle',paint);
+  graphDetail.addEventListener('toggle',paint);
   video.addEventListener('loadedmetadata', () => {
     const saved = remembered.get(current.slug);
     if (saved?.time) video.currentTime = Math.min(saved.time,video.duration - .05);
@@ -107,5 +109,35 @@
     catch { status.textContent = 'Fullscreen is unavailable in this browser. You can open the downloaded video instead.'; }
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) video.pause(); });
+  const intro = document.getElementById('project-intro');
+  const introShell = document.getElementById('intro-shell');
+  const closeIntro = document.getElementById('intro-close');
+  const reopenIntro = document.getElementById('intro-reopen');
+  let introScrollTimer;
+  function setIntroOpen(open) {
+    clearTimeout(introScrollTimer);
+    reopenIntro.hidden = open;
+    closeIntro.setAttribute('aria-expanded', String(open));
+    reopenIntro.setAttribute('aria-expanded', String(open));
+    if (!open) reopenIntro.focus({preventScroll:true});
+    intro.inert = !open;
+    intro.setAttribute('aria-hidden', String(!open));
+    introShell.classList.toggle('is-collapsed', !open);
+    if (open) closeIntro.focus({preventScroll:true});
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    introScrollTimer = setTimeout(() => {
+      (open ? introShell : root).scrollIntoView({block:'start', behavior:reducedMotion ? 'instant' : 'smooth'});
+    }, reducedMotion ? 0 : 330);
+  }
+  closeIntro.hidden = false;
+  closeIntro.addEventListener('click', () => setIntroOpen(false));
+  reopenIntro.addEventListener('click', () => setIntroOpen(true));
+  document.querySelectorAll('a[href="#video-demos"]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    setIntroOpen(false);
+  }));
+  document.querySelector('.wordmark').addEventListener('click', event => {
+    if (introShell.classList.contains('is-collapsed')) { event.preventDefault(); setIntroOpen(true); }
+  });
   selectCase(0);
 })();

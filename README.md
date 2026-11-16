@@ -18,10 +18,11 @@ The website uses plain HTML, CSS and JavaScript, with no build step or external 
 
 ## Update the page
 
-- `site-config.js`: author names, email links, contribution markers and publication links. Empty metadata stays hidden.
+- `site-config.js`: author names, displayed email addresses, contribution markers and publication links. Empty metadata stays hidden.
 - `data.js`: numerical results.
 - `index.html`: page content.
 - `style.css` and `script.js`: layout and interactions.
+- `video-gallery.css` and `video-gallery.js`: full-width video carousel, synchronized expandable views, and retractable introduction.
 - `assets/images/`: figure previews.
 - `assets/pdfs/`: original figures. A public manuscript link can be added in `site-config.js` when available.
 
