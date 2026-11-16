@@ -15,3 +15,7 @@ dialog{border:1px solid #ded6e6;border-radius:12px;padding:0;width:min(1500px,96
 
 /* Plain author names, visible contact details, and the original scale figure. */
 .author-emails{display:flex;flex-wrap:wrap;justify-content:center;gap:5px 17px;max-width:960px;margin:13px auto 0;font-size:13px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere}.email-group:first-child{flex-basis:100%}.author-notes{margin-top:9px}.scale-visual{width:100%;max-width:620px;justify-self:center}.scale-visual img{width:100%;height:auto}.hero{padding-bottom:12px}@media(max-width:600px){.author-emails{font-size:11px;gap:4px 12px;margin-top:12px;line-height:1.7}.hero{padding-bottom:0}}
+
+/* Show one original PDF panel at a time without redrawing the chart. */
+.scale-tabs{margin-bottom:18px}.scale-crop{aspect-ratio:1600/891;overflow:hidden}.scale-crop img{position:absolute;inset:0 auto auto 0;width:100%;max-width:none;height:auto}.scale-crop-b img{transform:translateY(-50%)}
+@media(max-width:600px){.nav-links{gap:17px}.scale-tabs button{font-size:12px;padding:10px 18px}}

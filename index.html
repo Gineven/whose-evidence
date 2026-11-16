@@ -12,17 +12,19 @@
   <meta name="author" content="Jingjun Sun, Chaowei Wang, Jiaxu Tian, Ming Yang, Yao Zhang, Yan Di, Shan Gao">
   <title>Whose Evidence Is It? | UAV Video Grounding</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=20261116b">
+  <link rel="stylesheet" href="style.css?v=20261116c">
+  <link rel="stylesheet" href="video-gallery.css?v=20261116c">
   <script src="site-config.js" defer></script>
   <script src="data.js" defer></script>
-  <script src="script.js?v=20261116b" defer></script>
+  <script src="script.js?v=20261116c" defer></script>
+  <script src="video-gallery.js?v=20261116c" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <nav class="nav container" aria-label="Main navigation">
       <a class="wordmark" href="#top"><span class="node-mark" aria-hidden="true"><i></i><i></i><i></i></span>Whose Evidence?</a>
-      <div class="nav-links"><a href="#method">Method</a><a href="#results">Results</a><a href="#qualitative">Visualizations</a><a href="#transfer">Transfer</a></div>
+      <div class="nav-links"><a href="#video-demos">Videos</a><a href="#method">Method</a><a href="#results">Results</a><a href="#qualitative">Visualizations</a><a href="#transfer">Transfer</a></div>
     </nav>
   </header>
   <main id="main">
@@ -43,6 +45,49 @@
         <a class="pill" href="#results">Explore results <span aria-hidden="true">↓</span></a>
       </div>
       <p class="hero-summary">Similar objects. Scattered clues.<br><strong>Evaluate the evidence under competing correspondence hypotheses.</strong></p>
+
+    </section>
+
+    <section class="section container" id="video-demos" aria-labelledby="video-heading">
+      <div class="section-heading"><p class="eyebrow">Video demonstrations</p><h2 id="video-heading">See the reasoning in motion.</h2><p>Follow the target, compare candidate close-ups, and inspect soft subgraphs on one timeline.</p></div>
+      <div class="demo-gallery" role="region" aria-roledescription="carousel" aria-label="Three video grounding examples">
+        <div class="demo-navigation">
+          <button type="button" class="demo-arrow" id="demo-prev" aria-label="Previous video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+          <div class="demo-case-heading" aria-live="polite" aria-atomic="true"><span id="demo-number">01 / 03</span><h3 id="demo-title">Red articulated bus</h3></div>
+          <button type="button" class="demo-arrow" id="demo-next" aria-label="Next video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+        </div>
+        <div class="demo-viewer" id="demo-viewer" aria-labelledby="demo-title">
+          <div class="demo-main" tabindex="0" role="group" aria-label="Video scene. Press Space to play or pause.">
+            <video id="demo-source" width="1280" height="1472" muted playsinline loop preload="metadata" aria-label="Video grounding example"></video>
+            <canvas id="demo-main-canvas" width="1280" height="832" aria-hidden="true"></canvas>
+            <button type="button" class="demo-big-play" id="demo-big-play" aria-label="Play video"><span aria-hidden="true">▶</span></button>
+          </div>
+          <div class="demo-controls">
+            <button type="button" id="demo-play" class="demo-play" aria-label="Play video">▶ <span>Play</span></button>
+            <span id="demo-clock" class="demo-clock">0:00 / 0:16</span>
+            <input id="demo-seek" type="range" min="0" max="16.75" step="0.01" value="0" aria-label="Video progress">
+            <select id="demo-speed" aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select>
+            <button type="button" id="demo-fullscreen" class="demo-fullscreen" aria-label="Enter video fullscreen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+          </div>
+          <p id="demo-status" class="demo-status" role="status"></p>
+          <details id="demo-zoom" class="demo-zoom">
+            <summary><span class="demo-zoom-label">A/B close-ups</span><span class="demo-zoom-toggle" aria-hidden="true">+</span></summary>
+            <canvas id="demo-zoom-canvas" width="1280" height="360" role="img" aria-label="Synchronized close-ups of selected hypothesis A and alternative hypothesis B."></canvas>
+          </details>
+          <div class="demo-graphs"><div class="demo-graph-heading"><h3>Soft subgraphs</h3><span>Synced with the video</span></div><canvas id="demo-graph-canvas" width="1280" height="280" role="img" aria-label="Candidate support and temporal associations for hypotheses A and B."></canvas></div>
+          <div class="demo-footer"><span id="demo-info">56 observations · 64 candidates / observation</span><a id="demo-download" href="assets/videos/red-bus.mp4" download>Download video ↗</a></div>
+        </div>
+        <div class="demo-pagination" aria-label="Choose a video">
+          <button type="button" data-demo="0" aria-label="Video 1: Red articulated bus" aria-pressed="true">1</button>
+          <button type="button" data-demo="1" aria-label="Video 2: Yellow-blue bus on a busy bridge" aria-pressed="false">2</button>
+          <button type="button" data-demo="2" aria-label="Video 3: White coach at a busy junction" aria-pressed="false">3</button>
+        </div>
+      </div>
+      <p class="demo-note">A is the model's full-clip selection; B is an alternative hypothesis. The views share one playback clock. Boxes between sampled observations are interpolated for display.</p>
+      <noscript><p><a href="assets/videos/red-bus.mp4">Red bus</a> · <a href="assets/videos/bridge-bus.mp4">Yellow-blue bus</a> · <a href="assets/videos/white-coach.mp4">White coach</a></p></noscript>
+    </section>
+
+    <section class="container teaser-section" aria-label="Motivation">
       <figure class="teaser figure">
         <a class="zoomable" href="assets/pdfs/teaser.pdf" data-zoom="assets/images/teaser.webp" data-title="Motivation: whose evidence is combined across time?" aria-label="Enlarge the motivation figure"><img src="assets/images/teaser.webp" width="2400" height="1066" fetchpriority="high" alt="A white minivan and a similar distractor share appearance cues. Turning and viaduct cues emerge at different times. Competing soft subgraphs organize evidence for target selection."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a>
         <figcaption>A target and its look-alike can satisfy different parts of a description. We retain alternative correspondences and evaluate cross-time evidence under each hypothesis.</figcaption>
@@ -92,9 +137,18 @@
 
         <div class="scale-section">
           <div class="scale-intro"><p class="eyebrow">Target scale</p><h3>Small targets. More useful evidence.</h3><p>On targets occupying less than <strong>0.1%</strong> of the frame, m_fAcc rises from <strong>11.71%</strong> to <strong>30.57%</strong>.</p><p class="table-note">Groups use each query's median normalized ground-truth box area. The smallest group contains 1,110 queries across 222 videos.</p></div>
-          <figure class="scale-visual figure">
-            <a class="zoomable" href="assets/pdfs/target-scale.pdf" data-zoom="assets/images/target-scale.webp" data-title="Target-scale analysis from the paper" aria-label="Enlarge the target-scale analysis"><img src="assets/images/target-scale.webp" width="1600" height="1782" loading="lazy" alt="The paper's target-scale analysis comparing STCAT and Ours across four target-area groups, with m_vIoU in the upper panel and m_fAcc in the lower panel."><span class="zoom-label" aria-hidden="true">↗ Enlarge figure</span></a>
-          </figure>
+          <div class="scale-visual">
+            <div class="tabs scale-tabs" role="tablist" aria-label="Target-scale metric" data-tabs="scale">
+              <button id="tab-scale-a" role="tab" aria-controls="panel-scale-a" aria-selected="true" tabindex="0" data-tab="a">A · m_vIoU</button>
+              <button id="tab-scale-b" role="tab" aria-controls="panel-scale-b" aria-selected="false" tabindex="-1" data-tab="b">B · m_fAcc</button>
+            </div>
+            <figure id="panel-scale-a" class="figure tab-panel" role="tabpanel" aria-labelledby="tab-scale-a" data-tab-panel="scale:a">
+              <a class="zoomable scale-crop" href="assets/pdfs/target-scale.pdf" data-zoom="assets/images/target-scale.webp" data-title="Target-scale analysis from the paper" aria-label="Enlarge the target-scale analysis"><img src="assets/images/target-scale.webp" width="1600" height="1782" loading="lazy" alt="Panel A: m_vIoU of STCAT and Ours across four target-area groups."><span class="zoom-label" aria-hidden="true">↗ View full figure</span></a>
+            </figure>
+            <figure id="panel-scale-b" class="figure tab-panel" role="tabpanel" aria-labelledby="tab-scale-b" data-tab-panel="scale:b" hidden>
+              <a class="zoomable scale-crop scale-crop-b" href="assets/pdfs/target-scale.pdf" data-zoom="assets/images/target-scale.webp" data-title="Target-scale analysis from the paper" aria-label="Enlarge the target-scale analysis"><img src="assets/images/target-scale.webp" width="1600" height="1782" loading="lazy" alt="Panel B: m_fAcc of STCAT and Ours across four target-area groups."><span class="zoom-label" aria-hidden="true">↗ View full figure</span></a>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
